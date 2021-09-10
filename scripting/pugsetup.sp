@@ -557,6 +557,9 @@ public void OnMapStart() {
       g_Teams[i] = CS_TEAM_NONE;
     }
   }
+  
+  //Unload levelranks - JaguaresCSGO
+  ServerCommand("sm plugins unload levelsranks.smx");
 }
 
 public void OnMapEnd() {

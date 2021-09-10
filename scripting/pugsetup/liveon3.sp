@@ -61,6 +61,9 @@ public Action MatchLive(Handle timer) {
   if (g_GameState == GameState_None)
     return Plugin_Handled;
 
+  //Load levelranks - JaguaresCSGO
+  ServerCommand("sm plugins load levelsranks.smx");
+
   ChangeState(GameState_Live);
   Call_StartForward(g_hOnLive);
   Call_Finish();
