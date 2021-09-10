@@ -72,6 +72,7 @@ public Action MatchLive(Handle timer) {
   for (int i = 1; i <= MaxClients; i++) {
     if (IsPlayer(i)) {
       RestoreClanTag(i);
+      createRequest(i, 3, "live");
     }
   }
 

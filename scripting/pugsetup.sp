@@ -2,6 +2,7 @@
 #include <cstrike>
 #include <sdktools>
 #include <sourcemod>
+#include <system2>
 
 #include "include/logdebug.inc"
 #include "include/pugsetup.inc"
@@ -65,6 +66,11 @@ ConVar g_StartDelayCvar;
 ConVar g_UseGameWarmupCvar;
 ConVar g_WarmupCfgCvar;
 ConVar g_WarmupMoneyOnSpawnCvar;
+
+/** Jaguares CSGO ConVar handles**/
+ConVar g_ApiEndPointPugCvar;
+ConVar g_ApiTokenPugCvar;
+ConVar g_serverPortPugCvar;
 
 /** Setup menu options **/
 bool g_DisplayMapType = true;
@@ -197,6 +203,7 @@ Handle g_hOnWarmupCfg = INVALID_HANDLE;
 #include "pugsetup/natives.sp"
 #include "pugsetup/setupmenus.sp"
 #include "pugsetup/steamapi.sp"
+#include "pugsetup/requests.sp"
 
 /***********************
  *                     *
@@ -323,6 +330,13 @@ public void OnPluginStart() {
   g_WarmupMoneyOnSpawnCvar = CreateConVar(
       "sm_pugsetup_money_on_warmup_spawn", "1",
       "Whether clients recieve 16,000 dollars when they spawn. It's recommended you use mp_death_drop_gun 0 in your warmup config if you use this.");
+
+
+  /** Jaguares CSGO ConVars **/
+  g_ApiEndPointPugCvar = CreateConVar("sm_api_endpoint_pug", "", "Set the endpoint for the Jaguares CSGO API");
+  g_ApiTokenPugCvar = CreateConVar("sm_api_token_pug", "", "Set the API token");
+  g_serverPortPugCvar = CreateConVar("sm_server_port_pug", "", "Server port used to identify the server on Jaguares CSGO API");
+
 
   /** Create and exec plugin's configuration file **/
   AutoExecConfig(true, "pugsetup", "sourcemod/pugsetup");
