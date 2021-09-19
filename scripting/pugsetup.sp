@@ -1619,7 +1619,7 @@ public Action Event_MatchOver(Event event, const char[] name, bool dontBroadcast
 
 /** Helper timer to delay starting warmup period after match is over by a little bit **/
 public Action Timer_EndMatch(Handle timer) {
-  EndMatch(false, false);
+  EndMatch(false, false, true);
 }
 
 public Action Event_RoundStart(Event event, const char[] name, bool dontBroadcast) {
@@ -1959,7 +1959,7 @@ public void ExecGameConfigs() {
   }
 }
 
-stock void EndMatch(bool execConfigs = true, bool doRestart = true) {
+stock void EndMatch(bool execConfigs = true, bool doRestart = true, bool doRestartServer = false) {
   if (g_GameState == GameState_None) {
     return;
   }
@@ -2000,6 +2000,14 @@ stock void EndMatch(bool execConfigs = true, bool doRestart = true) {
   }
   if (InWarmup()) {
     EndWarmup();
+  }
+  if (doRestartServer) {
+    for (int i = 1; i <= MaxClients; i++) {
+    if (IsPlayer(i)) {
+      KickClient(i, "Obrigado por jogar nos servidores da Jaguares CSGO =)");
+    }
+  }
+    ServerCommand("sm_rcon _restart");
   }
   if (doRestart) {
     RestartGame(1);
